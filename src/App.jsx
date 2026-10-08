@@ -49,7 +49,7 @@ function App() {
         <Route
           path="/post-job"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="employer">
               <PostJobPage />
             </ProtectedRoute>
           }
@@ -57,7 +57,7 @@ function App() {
         <Route
           path="/edit-job/:id"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="employer">
               <EditJobPage />
             </ProtectedRoute>
           }
@@ -65,7 +65,7 @@ function App() {
         <Route
           path="/my-jobs"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="employer">
               <MyPostedJobsPage />
             </ProtectedRoute>
           }
@@ -73,7 +73,7 @@ function App() {
         <Route
           path="/employer-applications"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="employer">
               <EmployerApplicationsPage />
             </ProtectedRoute>
           }
@@ -97,7 +97,7 @@ function App() {
         <Route
           path="/company-profile"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="employer">
               <CompanyProfilePage />
             </ProtectedRoute>
           }

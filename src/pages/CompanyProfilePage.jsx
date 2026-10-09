@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
+import Navbar from '../Navbar';
+import {
+  ACCENT,
+  TEXT_MUTED,
+  cardStyle,
+  pageHeading,
+  inputStyle,
+  buttonStyle,
+  errorMsgStyle,
+} from '../theme';
 
 export default function CompanyProfilePage() {
   const navigate = useNavigate();
@@ -43,9 +53,9 @@ export default function CompanyProfilePage() {
         setCompany(null);
         setIsEditing(true);
       } else if (err.response && err.response.status === 403) {
-        setError('Access नाकारला (403). Login परत करून बघा, किंवा हे employer account आहे का ते तपासा.');
+        setError('Access denied (403). Please log in again and make sure this is an employer account.');
       } else {
-        setError('Company details load करताना error आला. परत प्रयत्न करा.');
+        setError('Could not load company details. Please try again.');
       }
     } finally {
       setLoading(false);
@@ -61,7 +71,7 @@ export default function CompanyProfilePage() {
     setError('');
 
     if (!formData.name.trim()) {
-      setError('Company name आवश्यक आहे.');
+      setError('Company name is required.');
       return;
     }
 
@@ -83,13 +93,13 @@ export default function CompanyProfilePage() {
       setIsEditing(false);
     } catch (err) {
       if (err.response && err.response.status === 400) {
-        setError('या employer साठी company आधीच existing आहे किंवा input चुकीचं आहे.');
+        setError('This employer already has a company, or the input is not valid.');
       } else if (err.response && err.response.status === 403) {
-        setError('Access नाकारला (403). Login परत करून बघा, किंवा हे employer account आहे का ते तपासा.');
+        setError('Access denied (403). Please log in again and make sure this is an employer account.');
       } else if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        setError('Save करताना काहीतरी चुकलं. परत प्रयत्न करा.');
+        setError('Something went wrong while saving. Please try again.');
       }
     } finally {
       setSaving(false);
@@ -113,162 +123,159 @@ export default function CompanyProfilePage() {
     }
   };
 
+  const secondaryButtonStyle = {
+    padding: '8px 16px',
+    fontSize: '13px',
+    fontWeight: 'bold',
+    borderRadius: '6px',
+    border: `1px solid ${ACCENT}`,
+    background: '#fff',
+    color: ACCENT,
+    cursor: 'pointer',
+  };
+
+  const fieldLabel = {
+    display: 'block',
+    fontSize: '13px',
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: '4px',
+  };
+
+  const fieldGroup = { marginBottom: '14px' };
+
   if (loading) {
     return (
-      <div style={{ padding: '40px', textAlign: 'center' }}>
-        Loading...
+      <div>
+        <Navbar />
+        <p style={{ color: TEXT_MUTED, textAlign: 'center', marginTop: '30px' }}>
+          Loading...
+        </p>
       </div>
     );
   }
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '30px 20px' }}>
-      <h2 style={{ marginBottom: '20px' }}>
-        {company ? 'Company Profile' : 'Create Your Company'}
-      </h2>
+    <div>
+      <Navbar />
+      <div style={{ maxWidth: '600px', margin: '0 auto', padding: '0 15px' }}>
+        <h1 style={pageHeading}>
+          {company ? 'Company Profile' : 'Create Your Company'}
+        </h1>
 
-      {error && (
-        <div
-          style={{
-            background: '#fdecea',
-            color: '#b71c1c',
-            padding: '10px 14px',
-            borderRadius: '6px',
-            marginBottom: '16px',
-          }}
-        >
-          {error}
-        </div>
-      )}
+        {error && <p style={errorMsgStyle}>{error}</p>}
 
-      {!isEditing && company ? (
-        <div
-          style={{
-            border: '1px solid #e0e0e0',
-            borderRadius: '8px',
-            padding: '20px',
-          }}
-        >
-          {company.logoUrl && (
-            <img
-              src={company.logoUrl}
-              alt={`${company.name} logo`}
-              style={{ maxWidth: '120px', marginBottom: '14px' }}
-            />
-          )}
-          <h3 style={{ margin: '0 0 8px 0' }}>{company.name}</h3>
-          {company.location && (
-            <p style={{ color: '#555', margin: '4px 0' }}>📍 {company.location}</p>
-          )}
-          {company.website && (
-            <p style={{ margin: '4px 0' }}>
-              🔗{' '}
-              <a href={company.website} target="_blank" rel="noreferrer">
-                {company.website}
-              </a>
-            </p>
-          )}
-          {company.description && (
-            <p style={{ marginTop: '12px', whiteSpace: 'pre-wrap' }}>
-              {company.description}
-            </p>
-          )}
-          <button
-            onClick={() => setIsEditing(true)}
-            style={{
-              marginTop: '16px',
-              padding: '8px 16px',
-              cursor: 'pointer',
-            }}
-          >
-            Edit Company
-          </button>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', marginBottom: '4px' }}>
-              Company Name *
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              style={{ width: '100%', padding: '8px' }}
-            />
-          </div>
-
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', marginBottom: '4px' }}>
-              Description
-            </label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              rows={4}
-              style={{ width: '100%', padding: '8px' }}
-            />
-          </div>
-
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', marginBottom: '4px' }}>
-              Website
-            </label>
-            <input
-              type="text"
-              name="website"
-              value={formData.website}
-              onChange={handleChange}
-              placeholder="https://example.com"
-              style={{ width: '100%', padding: '8px' }}
-            />
-          </div>
-
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', marginBottom: '4px' }}>
-              Location
-            </label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              style={{ width: '100%', padding: '8px' }}
-            />
-          </div>
-
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', marginBottom: '4px' }}>
-              Logo URL
-            </label>
-            <input
-              type="text"
-              name="logoUrl"
-              value={formData.logoUrl}
-              onChange={handleChange}
-              placeholder="https://..."
-              style={{ width: '100%', padding: '8px' }}
-            />
-          </div>
-
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button type="submit" disabled={saving} style={{ padding: '8px 16px' }}>
-              {saving ? 'Saving...' : company ? 'Update' : 'Create Company'}
-            </button>
+        {!isEditing && company ? (
+          <div style={{ ...cardStyle, padding: '24px', marginTop: '16px' }}>
+            {company.logoUrl && (
+              <img
+                src={company.logoUrl}
+                alt={`${company.name} logo`}
+                style={{ maxWidth: '120px', marginBottom: '14px' }}
+              />
+            )}
+            <h2 style={{ margin: '0 0 8px 0', color: '#111' }}>{company.name}</h2>
+            {company.location && (
+              <p style={{ color: TEXT_MUTED, margin: '4px 0' }}>📍 {company.location}</p>
+            )}
+            {company.website && (
+              <p style={{ margin: '4px 0' }}>
+                🔗{' '}
+                <a href={company.website} target="_blank" rel="noreferrer">
+                  {company.website}
+                </a>
+              </p>
+            )}
+            {company.description && (
+              <p style={{ marginTop: '12px', whiteSpace: 'pre-wrap', color: TEXT_MUTED }}>
+                {company.description}
+              </p>
+            )}
             <button
-              type="button"
-              onClick={handleCancelEdit}
-              disabled={saving}
-              style={{ padding: '8px 16px' }}
+              onClick={() => setIsEditing(true)}
+              style={{ ...secondaryButtonStyle, marginTop: '16px' }}
             >
-              Cancel
+              Edit Company
             </button>
           </div>
-        </form>
-      )}
+        ) : (
+          <div style={{ ...cardStyle, marginTop: '16px' }}>
+            <form onSubmit={handleSubmit}>
+              <div style={fieldGroup}>
+                <label style={fieldLabel}>Company Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  style={{ ...inputStyle, width: '100%' }}
+                />
+              </div>
+
+              <div style={fieldGroup}>
+                <label style={fieldLabel}>Description</label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  rows={4}
+                  style={{ ...inputStyle, width: '100%' }}
+                />
+              </div>
+
+              <div style={fieldGroup}>
+                <label style={fieldLabel}>Website</label>
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  placeholder="https://example.com"
+                  style={{ ...inputStyle, width: '100%' }}
+                />
+              </div>
+
+              <div style={fieldGroup}>
+                <label style={fieldLabel}>Location</label>
+                <input
+                  type="text"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  style={{ ...inputStyle, width: '100%' }}
+                />
+              </div>
+
+              <div style={fieldGroup}>
+                <label style={fieldLabel}>Logo URL</label>
+                <input
+                  type="text"
+                  name="logoUrl"
+                  value={formData.logoUrl}
+                  onChange={handleChange}
+                  placeholder="https://..."
+                  style={{ ...inputStyle, width: '100%' }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                <button type="submit" disabled={saving} style={buttonStyle}>
+                  {saving ? 'Saving...' : company ? 'Update' : 'Create Company'}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCancelEdit}
+                  disabled={saving}
+                  style={{ ...secondaryButtonStyle, borderColor: '#ccc', color: '#555' }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

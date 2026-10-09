@@ -14,6 +14,10 @@ Backend repository: [job-portal-spring-boot](https://github.com/sakshigujar07/jo
 
 ![Job details](screenshots/job-detail.png)
 
+**Employer: dashboard**
+
+![Employer dashboard](screenshots/dashboard.png)
+
 **Employer: applications**
 
 ![Employer applications](screenshots/employer-applications.png)

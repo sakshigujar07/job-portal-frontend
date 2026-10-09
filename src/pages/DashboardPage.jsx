@@ -56,6 +56,18 @@ const jobCardBase = {
   boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
 }
 
+const employerLinkStyle = {
+  ...linkStyle,
+  display: 'inline-block',
+  marginTop: '8px',
+  fontSize: '15px',
+  fontWeight: 800,
+  textDecoration: 'underline',
+  textDecorationThickness: '2px',
+  textUnderlineOffset: '3px',
+  cursor: 'pointer',
+}
+
 function DashboardPage() {
   const token = localStorage.getItem('token')
   const role = getRoleFromToken(token)
@@ -254,6 +266,7 @@ function DashboardPage() {
                   <div style={numberStyle}>
                     {employerStats.jobsPosted === null ? '—' : employerStats.jobsPosted}
                   </div>
+                  <Link style={employerLinkStyle} to="/my-jobs">Manage Jobs</Link>
                 </div>
                 <div style={cardStyle}>
                   <div style={labelStyle}>Applications Received</div>
@@ -262,16 +275,12 @@ function DashboardPage() {
                       ? '—'
                       : employerStats.applicationsReceived}
                   </div>
+                  <Link style={employerLinkStyle} to="/employer-applications">View Applications</Link>
                 </div>
               </div>
             ) : (
               !statsError && <p style={{ color: '#555' }}>Loading your stats...</p>
             )}
-            <p style={{ marginTop: '20px', textAlign: 'center' }}>
-              <Link style={linkStyle} to="/my-jobs">Manage Jobs</Link>
-              <span style={{ color: '#aaa' }}> · </span>
-              <Link style={linkStyle} to="/employer-applications">View Applications</Link>
-            </p>
           </>
         )}
 

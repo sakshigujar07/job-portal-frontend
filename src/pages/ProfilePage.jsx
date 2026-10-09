@@ -335,7 +335,7 @@ function ProfilePage() {
                   value={education}
                   onChange={(e) => setEducation(e.target.value)}
                   style={{ ...inputStyle, width: "100%" }}
-                  placeholder="e.g. BCA - Your College Name"
+                  placeholder="e.g. Bachelor's degree - College name"
                 />
               </div>
               {error && <p style={errorMsgStyle}>{error}</p>}

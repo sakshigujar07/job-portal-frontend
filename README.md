@@ -4,6 +4,28 @@ A job portal web app where employers post jobs and job seekers apply for them. T
 
 Backend repository: [job-portal-spring-boot](https://github.com/sakshigujar07/job-portal-spring-boot)
 
+## Screenshots
+
+**Browse jobs**
+
+![Jobs list](screenshots/jobs.png)
+
+**Job details**
+
+![Job details](screenshots/job-detail.png)
+
+**Employer: applications**
+
+![Employer applications](screenshots/employer-applications.png)
+
+**Post a job**
+
+![Post a job](screenshots/post-job.png)
+
+**Notifications**
+
+![Notifications](screenshots/notifications.png)
+
 ## Features
 
 **For everyone**
@@ -22,6 +44,8 @@ Backend repository: [job-portal-spring-boot](https://github.com/sakshigujar07/jo
 - Post, edit and delete jobs
 - See applications for your jobs and Shortlist, Hire or Reject candidates
 - Dashboard with job and application stats
+
+Employer pages are protected by role. A job seeker who opens an employer page is sent back to the jobs list.
 
 ## Tech Stack
 
@@ -61,10 +85,11 @@ To run the backend, follow the setup steps in the [backend repository](https://g
 
 ```
 src/
-  api.js        Axios instance with the backend base URL
-  theme.js      Shared styles used by all pages
-  App.jsx       Routes
-  pages/        All pages (Home, Login, Dashboard, Jobs, Company, etc.)
+  api.js              Axios instance with the backend base URL
+  theme.js            Shared styles used by all pages
+  App.jsx             Routes
+  ProtectedRoute.jsx  Login and role check for routes
+  pages/              All pages (Home, Login, Dashboard, Jobs, Company, etc.)
 ```
 
 ## Notes

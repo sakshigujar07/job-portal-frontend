@@ -1,65 +1,70 @@
-import { useState } from 'react'
 import Navbar from '../Navbar'
 
 function ContactPage() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const label = {
+    display: 'block',
+    fontSize: '13px',
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: '4px',
+    textAlign: 'center',
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setSubmitted(true)
+  const inputStyle = {
+    width: '100%',
+    padding: '8px 10px',
+    boxSizing: 'border-box',
+    border: '1px solid #ccc',
+    borderRadius: '6px',
+    fontSize: '14px',
+    background: '#ffffff',
+    marginBottom: '12px',
+  }
+
+  const buttonStyle = {
+    width: '100%',
+    padding: '9px',
+    marginTop: '6px',
+    background: '#2563eb',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '15px',
+    cursor: 'pointer',
   }
 
   return (
-    <div style={{ fontFamily: 'Arial' }}>
+    <div>
       <Navbar />
-
-      <div style={{ maxWidth: '500px', margin: '50px auto', padding: '0 20px' }}>
+      <div style={{ padding: '20px', textAlign: 'center' }}>
         <h1>Get in Touch</h1>
-        <p style={{ color: '#666' }}>
+        <p style={{ fontSize: '17px', color: '#444', lineHeight: '1.6', maxWidth: '520px', margin: '0 auto 20px' }}>
           Have questions or feedback? Send us a message using the form below.
         </p>
 
-        {submitted ? (
-          <p style={{ color: 'green', marginTop: '20px' }}>
-            Thanks! Your message has been noted — we'll get back to you soon.
-          </p>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: '15px' }}>
-              <label>Name</label><br />
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                style={{ width: '100%', padding: '8px' }}
-                required
-              />
-            </div>
-            <div style={{ marginBottom: '15px' }}>
-              <label>Email</label><br />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                style={{ width: '100%', padding: '8px' }}
-                required
-              />
-            </div>
-            <div style={{ marginBottom: '15px' }}>
-              <label>Message</label><br />
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                style={{ width: '100%', padding: '8px' }}
-                rows="4"
-                required
-              />
-            </div>
-            <button type="submit" style={{ padding: '8px 20px' }}>Send Message</button>
+        <div
+          style={{
+            maxWidth: '420px',
+            margin: '0 auto',
+            background: '#ffffff',
+            borderRadius: '10px',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+            padding: '20px 28px',
+          }}
+        >
+          <form onSubmit={(e) => e.preventDefault()}>
+            <label style={label}>Name</label>
+            <input style={inputStyle} type="text" />
+
+            <label style={label}>Email</label>
+            <input style={inputStyle} type="email" />
+
+            <label style={label}>Message</label>
+            <textarea style={{ ...inputStyle, height: '90px', resize: 'vertical' }} />
+
+            <button style={buttonStyle} type="submit">Send Message</button>
           </form>
-        )}
+        </div>
       </div>
     </div>
   )

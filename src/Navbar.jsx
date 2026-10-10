@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import api from './api'
 
@@ -21,6 +21,7 @@ function decodeJwt(token) {
 
 function Navbar() {
   const navigate = useNavigate()
+  const location = useLocation()
   const token = localStorage.getItem('token')
   const [initials, setInitials] = useState(null)
   const [isEmployer, setIsEmployer] = useState(false)
@@ -54,6 +55,28 @@ function Navbar() {
     navigate('/')
   }
 
+  // Home (/) वर बाण दाखवत नाही
+  const showBack = location.pathname !== '/'
+
+  const backButton = showBack ? (
+    <button
+      onClick={() => navigate(-1)}
+      title="Go back"
+      aria-label="Go back"
+      style={{
+        background: 'none',
+        border: 'none',
+        color: 'white',
+        fontSize: '30px',
+        lineHeight: 1,
+        cursor: 'pointer',
+        padding: 0,
+      }}
+    >
+      ←
+    </button>
+  ) : null
+
   return (
     <div style={{
       display: 'flex',
@@ -70,7 +93,8 @@ function Navbar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
         {token ? (
           <>
-            <Link to="/dashboard" title="Back to Dashboard" style={{ color: 'white', fontSize: '18px', textDecoration: 'none' }}>←</Link>
+            {backButton}
+            <Link to="/dashboard" style={{ color: 'white' }}>Dashboard</Link>
             <Link to="/jobs" style={{ color: 'white' }}>Jobs</Link>
             {isEmployer && (
               <Link to="/company-profile" style={{ color: 'white' }}>My Company</Link>
@@ -101,6 +125,7 @@ function Navbar() {
           </>
         ) : (
           <>
+            {backButton}
             <Link to="/" style={{ color: 'white' }}>Home</Link>
             <Link to="/about" style={{ color: 'white' }}>About</Link>
             <Link to="/contact" style={{ color: 'white' }}>Contact</Link>

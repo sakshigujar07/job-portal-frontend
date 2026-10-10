@@ -30,7 +30,7 @@ function LoginPage() {
     }
   }
 
-  // ---- styles (matching RegisterPage) ----
+  // ---- styles ----
   const pageWrap = {
     minHeight: 'calc(100vh - 60px)',
     display: 'flex',
@@ -41,47 +41,49 @@ function LoginPage() {
   }
 
   const card = {
-    width: '380px',
+    width: '460px',
+    maxWidth: '90%',
     background: '#ffffff',
-    borderRadius: '10px',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-    padding: '20px 28px',
+    borderRadius: '12px',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.12)',
+    padding: '32px 40px',
   }
 
   const pageHeading = {
     textAlign: 'center',
-    fontSize: '36px',
+    fontSize: '38px',
     fontWeight: 'bold',
-    margin: '30px 0 20px',
+    margin: '30px 0 22px',
   }
 
-  const fieldGroup = { marginBottom: '9px' }
+  const fieldGroup = { marginBottom: '16px' }
 
   const label = {
     display: 'block',
-    fontSize: '13px',
+    fontSize: '15px',
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: '4px',
+    marginBottom: '6px',
   }
 
   const inputStyle = {
     width: '100%',
-    padding: '7px 10px',
+    padding: '11px 12px',
     boxSizing: 'border-box',
     border: '1px solid #ccc',
     borderRadius: '6px',
-    fontSize: '14px',
+    fontSize: '16px',
+    background: '#ffffff',
   }
 
   const passwordInputStyle = {
     ...inputStyle,
-    paddingRight: '40px',
+    paddingRight: '44px',
   }
 
   const eyeButton = {
     position: 'absolute',
-    right: '8px',
+    right: '10px',
     top: '50%',
     transform: 'translateY(-50%)',
     background: 'none',
@@ -95,26 +97,25 @@ function LoginPage() {
 
   const buttonStyle = {
     width: '100%',
-    padding: '9px',
-    marginTop: '14px',
+    padding: '12px',
+    marginTop: '20px',
     background: '#2563eb',
     color: '#fff',
     border: 'none',
     borderRadius: '6px',
-    fontSize: '15px',
+    fontSize: '17px',
     cursor: 'pointer',
   }
 
   const footerText = {
     textAlign: 'center',
-    marginTop: '10px',
-    fontSize: '13px',
+    marginTop: '16px',
+    fontSize: '14px',
     color: '#555',
   }
 
-  // eye icon: password दिसत असताना "eye-off" (आडवी रेघ), लपलेला असताना साधा "eye"
   const EyeIcon = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
       <circle cx="12" cy="12" r="3" />
@@ -122,7 +123,7 @@ function LoginPage() {
   )
 
   const EyeOffIcon = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
       <circle cx="12" cy="12" r="3" />
@@ -132,6 +133,14 @@ function LoginPage() {
 
   return (
     <div>
+      <style>{`
+        .login-card input:-webkit-autofill,
+        .login-card input:-webkit-autofill:hover,
+        .login-card input:-webkit-autofill:focus {
+          -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+          -webkit-text-fill-color: #000000 !important;
+        }
+      `}</style>
       <Navbar />
       <div style={pageWrap}>
         <div
@@ -143,7 +152,7 @@ function LoginPage() {
           }}
         >
           <h1 style={pageHeading}>Job Portal Login</h1>
-          <div style={card}>
+          <div className="login-card" style={card}>
             <form onSubmit={handleSubmit}>
               <div style={fieldGroup}>
                 <label style={label}>Email</label>
@@ -180,7 +189,7 @@ function LoginPage() {
                 <p
                   style={{
                     color: message.startsWith('Login successful') ? 'green' : 'red',
-                    fontSize: '13px',
+                    fontSize: '14px',
                   }}
                 >
                   {message}

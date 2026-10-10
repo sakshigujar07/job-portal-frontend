@@ -31,14 +31,25 @@ function FAQPage() {
     setOpenIndex(openIndex === index ? null : index)
   }
 
+  const boxStyle = {
+    background: '#ffffff',
+    border: '1px solid #ccc',
+    borderRadius: '10px',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+    padding: '14px 18px',
+    marginBottom: '12px',
+  }
+
   return (
     <div style={{ fontFamily: 'Arial' }}>
       <Navbar />
 
-      <div style={{ maxWidth: '600px', margin: '50px auto', padding: '0 20px' }}>
-        <h1>Frequently Asked Questions</h1>
+      <div style={{ maxWidth: '600px', margin: '40px auto', padding: '0 20px' }}>
+        <h1 style={{ textAlign: 'center', lineHeight: '1.3', marginBottom: '24px' }}>
+          Frequently Asked Questions
+        </h1>
         {faqs.map((faq, index) => (
-          <div key={index} style={{ borderBottom: '1px solid #ddd', padding: '15px 0' }}>
+          <div key={index} style={boxStyle}>
             <div
               onClick={() => toggle(index)}
               style={{ cursor: 'pointer', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between' }}
@@ -47,7 +58,7 @@ function FAQPage() {
               <span>{openIndex === index ? '−' : '+'}</span>
             </div>
             {openIndex === index && (
-              <p style={{ marginTop: '10px', color: '#555' }}>{faq.answer}</p>
+              <p style={{ marginTop: '10px', marginBottom: 0, color: '#555', lineHeight: '1.6' }}>{faq.answer}</p>
             )}
           </div>
         ))}

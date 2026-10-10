@@ -19,31 +19,31 @@ function HomePage() {
 
   // ---- styles (matching Login and Register) ----
   const card = {
-    maxWidth: '560px',
+    maxWidth: '720px',
     margin: '30px auto 0',
     background: '#ffffff',
-    borderRadius: '10px',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-    padding: '24px 28px',
+    borderRadius: '12px',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.12)',
+    padding: '36px 40px',
   }
 
   const inputStyle = {
     flex: 1,
-    padding: '9px 10px',
+    padding: '14px 14px',
     boxSizing: 'border-box',
     border: '1px solid #ccc',
     borderRadius: '6px',
-    fontSize: '14px',
+    fontSize: '16px',
     background: '#ffffff',
   }
 
   const searchButton = {
-    padding: '9px 20px',
+    padding: '14px 28px',
     background: '#2563eb',
     color: '#fff',
     border: 'none',
     borderRadius: '6px',
-    fontSize: '15px',
+    fontSize: '16px',
     cursor: 'pointer',
   }
 
@@ -58,7 +58,7 @@ function HomePage() {
         </p>
 
         <div style={card}>
-          <form onSubmit={handleSearch} style={{ display: 'flex', gap: '10px' }}>
+          <form onSubmit={handleSearch} style={{ display: 'flex', gap: '12px' }}>
             <input
               type="text"
               placeholder="Job title or keyword"
@@ -69,18 +69,19 @@ function HomePage() {
             <button type="submit" style={searchButton}>Find Jobs</button>
           </form>
 
-          <div style={{ marginTop: '22px' }}>
-            <p style={{ color: '#999', marginBottom: '10px', fontSize: '14px' }}>TRENDING</p>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <div style={{ marginTop: '28px' }}>
+            <p style={{ color: '#999', marginBottom: '14px', fontSize: '15px' }}>TRENDING</p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
               {trendingTags.map((tag) => (
                 <button
                   key={tag}
                   onClick={() => goToSearch(tag)}
                   style={{
-                    padding: '6px 14px',
+                    padding: '8px 18px',
                     borderRadius: '20px',
                     border: '1px solid #ccc',
                     backgroundColor: '#f5f5f5',
+                    fontSize: '14px',
                     cursor: 'pointer'
                   }}
                 >

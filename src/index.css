@@ -110,3 +110,22 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+/* Make all input boxes white on every page */
+input,
+select,
+textarea {
+  background-color: #ffffff !important;
+}
+
+/* Remove Chrome's blue/lavender autofill color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #000000 !important;
+  caret-color: #000000;
+  transition: background-color 5000s ease-in-out 0s;
+}

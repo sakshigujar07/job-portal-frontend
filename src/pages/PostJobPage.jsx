@@ -151,8 +151,18 @@ function PostJobPage() {
             <input value={location} onChange={(e) => setLocation(e.target.value)} style={fullWidthInput} />
           </div>
           <div style={fieldWrapStyle}>
-            <label style={labelStyle}>Salary</label><br />
-            <input type="number" min="0" value={salary} onChange={(e) => setSalary(e.target.value)} style={fullWidthInput} />
+            <label style={labelStyle}>Annual Salary (₹ per year)</label><br />
+            <input
+              type="number"
+              min="0"
+              placeholder="e.g. 400000"
+              value={salary}
+              onChange={(e) => setSalary(e.target.value)}
+              style={fullWidthInput}
+            />
+            <span style={{ display: 'block', marginTop: '4px', fontSize: '12px', color: TEXT_MUTED }}>
+              Enter the yearly amount, not monthly. For example, 35,000 per month = 420000.
+            </span>
           </div>
           <div style={fieldWrapStyle}>
             <label style={labelStyle}>Vacancy (number of openings)</label><br />

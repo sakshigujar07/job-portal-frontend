@@ -15,6 +15,14 @@ import {
 
 const PAGE_SIZE = 10
 
+function formatSalary(value) {
+  const num = Number(value)
+  if (value === null || value === undefined || value === '' || Number.isNaN(num)) {
+    return 'Not specified'
+  }
+  return `₹${num.toLocaleString('en-IN')} per year`
+}
+
 function JobListPage() {
   const [jobs, setJobs] = useState([])
   const [companiesById, setCompaniesById] = useState({})
@@ -139,7 +147,7 @@ function JobListPage() {
                 <strong style={{ color: '#111' }}>{getCompanyDisplayName(job)}</strong> — {job.location}
               </p>
               <p style={{ margin: '0 0 8px', color: '#333' }}>{job.description}</p>
-              <p style={{ margin: '0 0 12px', color: TEXT_MUTED }}>Salary: {job.salary}</p>
+              <p style={{ margin: '0 0 12px', color: TEXT_MUTED }}>Salary: {formatSalary(job.salary)}</p>
               <Link to={`/jobs/${job.id}`} style={{ textDecoration: 'none' }}>
                 <button style={buttonStyle}>View Details & Apply</button>
               </Link>
